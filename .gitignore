@@ -205,3 +205,7 @@ src/Presentation/Nop.Web/wwwroot/sitemaps/*
 !src/Presentation/Nop.Web/wwwroot/sitemaps/Index.htm
 src/packages/*
 src/Tests/Nop.Tests/Connections.resx
+
+#CN
+src/Plugins/Nop.Plugin.Payments.PurchaseOrder
+src/Presentation/Nop.Web/Themes/Chemglass
