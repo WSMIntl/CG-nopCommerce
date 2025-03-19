@@ -69,6 +69,42 @@
 
             @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide5)
         }
+
+        @{
+            var dataSlide6 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture6Url},
+                { "text", Model.Text6},
+                { "link", Model.Link6},
+                {"alttext", Model.AltText6 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide6)
+        }
+
+        @{
+            var dataSlide7 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture7Url},
+                { "text", Model.Text7},
+                { "link", Model.Link7},
+                {"alttext", Model.AltText7 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide7)
+        }
+
+        @{
+            var dataSlide8 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture8Url},
+                { "text", Model.Text8},
+                { "link", Model.Link8},
+                {"alttext", Model.AltText8 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide8)
+        }
     </div>
 </div>
 <script asp-location="Footer">

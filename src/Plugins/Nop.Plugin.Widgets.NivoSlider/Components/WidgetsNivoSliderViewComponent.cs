@@ -61,12 +61,28 @@ public class WidgetsNivoSliderViewComponent : NopViewComponent
             Picture5Url = await GetPictureUrlAsync(nivoSliderSettings.Picture5Id),
             Text5 = nivoSliderSettings.Text5,
             Link5 = nivoSliderSettings.Link5,
-            AltText5 = nivoSliderSettings.AltText5
+            AltText5 = nivoSliderSettings.AltText5,
+
+            Picture6Url = await GetPictureUrlAsync(nivoSliderSettings.Picture6Id),
+            Text6 = nivoSliderSettings.Text6,
+            Link6 = nivoSliderSettings.Link6,
+            AltText6 = nivoSliderSettings.AltText6,
+
+            Picture7Url = await GetPictureUrlAsync(nivoSliderSettings.Picture7Id),
+            Text7 = nivoSliderSettings.Text7,
+            Link7 = nivoSliderSettings.Link7,
+            AltText7 = nivoSliderSettings.AltText7,
+
+            Picture8Url = await GetPictureUrlAsync(nivoSliderSettings.Picture8Id),
+            Text8 = nivoSliderSettings.Text8,
+            Link8 = nivoSliderSettings.Link8,
+            AltText8 = nivoSliderSettings.AltText8,
         };
 
         if (string.IsNullOrEmpty(model.Picture1Url) && string.IsNullOrEmpty(model.Picture2Url) &&
             string.IsNullOrEmpty(model.Picture3Url) && string.IsNullOrEmpty(model.Picture4Url) &&
-            string.IsNullOrEmpty(model.Picture5Url))
+            string.IsNullOrEmpty(model.Picture5Url) && string.IsNullOrEmpty(model.Picture6Url) &&
+            string.IsNullOrEmpty(model.Picture7Url) && string.IsNullOrEmpty(model.Picture8Url))
             //no pictures uploaded
             return Content("");
 
