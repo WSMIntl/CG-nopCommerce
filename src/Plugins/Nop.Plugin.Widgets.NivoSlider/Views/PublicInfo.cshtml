@@ -3,12 +3,12 @@
     Layout = "";
 }
 
-<link rel="stylesheet" href="~/Plugins/Widgets.NivoSlider/Content/nivoslider/nivo-slider.css" />
-<link rel="stylesheet" href="~/Plugins/Widgets.NivoSlider/Content/nivoslider/themes/custom/custom.css" />
-<script asp-exclude-from-bundle="true" src="~/Plugins/Widgets.NivoSlider/Scripts/jquery.nivo.slider.js" asp-location="Footer"></script>
+<link href="~/Plugins/Widgets.NivoSlider/Content/css/swiper.css" rel="stylesheet">
+<link href="~/Plugins/Widgets.NivoSlider/Content/css/styles.css" rel="stylesheet">
+<script src="~/Plugins/Widgets.NivoSlider/scripts/swiper.js" asp-location="Footer"></script>
 
-<div class="slider-wrapper theme-custom">
-    <div id="nivo-slider" class="nivoSlider">
+<div class="swiper nop-slider">
+    <div id="swiper-slider" class="swiper-wrapper">
         @{
             var dataSlide1 = new ViewDataDictionary(ViewData)
             {
@@ -106,9 +106,27 @@
             @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide8)
         }
     </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
 </div>
 <script asp-location="Footer">
     $(window).on('load', function () {
-        $('#nivo-slider').nivoSlider();
+        var swiper6 = new Swiper(".nop-slider", {
+            autoHeight: false,
+            effect: "fade",
+            slidesPerGroup: 2,
+            slidesPerView: 2,
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+            },
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
     });
+
 </script>

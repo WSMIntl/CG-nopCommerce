@@ -19,6 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\css\styles.css" />
+    <None Remove="Content\css\swiper.css" />
     <None Remove="Content\nivoslider\license.txt" />
     <None Remove="Content\nivoslider\nivo-slider.css" />
     <None Remove="Content\nivoslider\README" />
@@ -54,6 +56,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\css\styles.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\swiper.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\nivoslider\license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -136,6 +144,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery.nivo.slider.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\swiper.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Configure.cshtml">
