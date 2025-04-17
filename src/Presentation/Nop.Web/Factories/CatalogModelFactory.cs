@@ -1765,6 +1765,7 @@ public partial class CatalogModelFactory : ICatalogModelFactory
                             searchProductTags: searchInProductTags,
                             languageId: workingLanguage.Id,
                             vendorId: vendorId,
+                            inStock: searchModel.InStock,
                             orderBy: orderBy);
 
                         return products?.FirstOrDefault()?.Price ?? 0;
@@ -1805,6 +1806,7 @@ public partial class CatalogModelFactory : ICatalogModelFactory
                     searchProductTags: searchInProductTags,
                     languageId: workingLanguage.Id,
                     orderBy: (ProductSortingEnum)command.OrderBy,
+                    inStock: searchModel.InStock,
                     vendorId: vendorId);
 
                 //search term statistics

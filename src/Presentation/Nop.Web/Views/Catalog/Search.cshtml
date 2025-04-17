@@ -77,6 +77,10 @@
                                 <input asp-for="sid" />
                                 <label asp-for="sid">@T("Search.SearchInDescriptions")</label>
                             </div>
+                            <div class="inputs reversed">
+                                <input asp-for="InStock" />
+                                <label asp-for="InStock">In Stock</label>
+                            </div>
                             @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductSearchPageAdvanced, additionalData = Model })
                         </div>
                     </div>

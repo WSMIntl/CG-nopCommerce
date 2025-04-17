@@ -846,6 +846,7 @@ public partial class ProductService : IProductService
         IList<SpecificationAttributeOption> filteredSpecOptions = null,
         ProductSortingEnum orderBy = ProductSortingEnum.Position,
         bool showHidden = false,
+        bool? inStock = null,
         bool? overridePublished = null)
     {
         //some databases don't support int.MaxValue
@@ -1114,6 +1115,11 @@ public partial class ProductService : IProductService
                 join ptm in _productTagMappingRepository.Table on p.Id equals ptm.ProductId
                 where ptm.ProductTagId == productTagId
                 select p;
+        }
+
+        if (inStock == true)
+        {
+            productsQuery = productsQuery.Where(x => x.StockQuantity > 0);
         }
 
         if (filteredSpecOptions?.Count > 0)

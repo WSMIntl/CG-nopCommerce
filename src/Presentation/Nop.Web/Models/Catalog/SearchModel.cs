@@ -64,6 +64,8 @@ public partial record SearchModel : BaseNopModel
     public IList<SelectListItem> AvailableManufacturers { get; set; }
     public IList<SelectListItem> AvailableVendors { get; set; }
 
+    public bool InStock { get; set; }
+
     #region Nested classes
 
     public partial record CategoryModel : BaseNopEntityModel
