@@ -927,7 +927,7 @@ public partial class ProductService : IProductService
                           (searchDescriptions &&
                            (p.ShortDescription.Contains(keywords) || p.FullDescription.Contains(keywords))) ||
                           (searchManufacturerPartNumber && p.ManufacturerPartNumber == keywords) ||
-                          (searchSku && p.Sku == keywords)
+                          (searchSku && p.Sku.Contains(keywords))
                     select p.Id;
 
                 if (searchLocalizedValue)
@@ -951,7 +951,7 @@ public partial class ProductService : IProductService
             {
                 productsByKeywords = productsByKeywords.Union(
                     from pac in _productAttributeCombinationRepository.Table
-                    where pac.Sku == keywords
+                    where pac.Sku.Contains(keywords)
                     select pac.ProductId);
             }
 
