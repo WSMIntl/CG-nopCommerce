@@ -102,7 +102,7 @@ public static class HtmlExtensions
         //Lightedge: temp captcha override
         id = "recaptcha_response_field"; //see ValidateCaptchaFilter.RESPONSE_FIELD_KEY;
         var yearTag = new TagBuilder("div") { TagRenderMode = TagRenderMode.Normal };
-        string yearHtml = $"<label for='{id}'>What is the current year?</label><input type='text' size='5' id='{id}' name='{id}' placeholder='Year?' />";
+        string yearHtml = $"<label for='{id}'>What is the current year?</label><input type='text' size='5' id='{id}' name='{id}' />";
         yearTag.InnerHtml.AppendHtml(yearHtml);
         return new HtmlString(await yearTag.RenderHtmlContentAsync());
         
