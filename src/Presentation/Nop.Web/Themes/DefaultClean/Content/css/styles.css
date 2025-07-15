@@ -8888,12 +8888,28 @@ a.skip:hover {
 .swiper.nop-slider {
     height:350px;
 }
+@media all and (max-width: 1200px) {
+  .swiper.nop-slider {
+    height: 300px;
+  }
+}
+@media all and (max-width: 1000px) {
+  .swiper.nop-slider {
+    height: 250px;
+  }
+}
+@media all and (max-width: 769px) {
+  .swiper.nop-slider {
+    height: 200px;
+  }
+}
 .swiper-button-prev, .swiper-button-next {
-  color: black;
-  padding: 40px 20px 40px 20px;
-  background-color: rgba(127,127,127,.2);
-}
-.swiper-button-prev:hover, .swiper-button-next:hover {
-  background-color: rgba(127,127,127,.6);
-  transition:400ms;
-}
+    color: black;
+    padding: 40px 20px 40px 20px;
+    background-color: rgba(127,127,127,.2);
+  }
+
+    .swiper-button-prev:hover, .swiper-button-next:hover {
+      background-color: rgba(127,127,127,.6);
+      transition: 400ms;
+    }
