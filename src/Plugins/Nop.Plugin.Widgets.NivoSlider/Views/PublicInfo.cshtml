@@ -5,7 +5,7 @@
 
 <link href="~/Plugins/Widgets.NivoSlider/Content/css/swiper.css" rel="stylesheet">
 <link href="~/Plugins/Widgets.NivoSlider/Content/css/styles.css" rel="stylesheet">
-<script src="~/Plugins/Widgets.NivoSlider/scripts/swiper.js" asp-location="Footer"></script>
+<script src="~/Plugins/Widgets.NivoSlider/scripts/swiper.js?v=3_00" asp-location="Footer"></script>
 
 <div class="swiper nop-slider">
     <div id="swiper-slider" class="swiper-wrapper">
@@ -114,6 +114,7 @@
         var swiper6 = new Swiper(".nop-slider", {
             autoHeight: false,
             effect: "fade",
+            loopAdditionalSlides: 2,
             slidesPerGroup: 2,
             slidesPerView: 2,
             autoplay: {
@@ -126,6 +127,13 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+            on: {
+                init: function () {
+                    var elem = $('.swiper').detach();
+                    elem.insertBefore('#main');
+                    $('.swiper').css('visibility', 'visible');
+                }
+            }
         });
     });
 
