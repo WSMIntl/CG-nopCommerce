@@ -8885,25 +8885,72 @@ a.skip:hover {
   width: 100%;
   font-size: 16px;
 }
+.swiper.nop-slider img {
+  width:100%;
+  height:auto;
+}
+
 .swiper.nop-slider {
-  height: 455px;
+  height: 1600px;
+}
+
+@media all and (max-width: 4500px) {
+  .swiper.nop-slider {
+    height: 1400px;
+  }
+}
+
+@media all and (max-width: 4000px) {
+  .swiper.nop-slider {
+    height: 1050px;
+  }
+}
+
+@media all and (max-width: 3600px) {
+  .swiper.nop-slider {
+    height: 850px;
+  }
+}
+
+@media all and (max-width: 3200px) {
+  .swiper.nop-slider {
+    height: 800px;
+  }
+}
+
+@media all and (max-width: 2800px) {
+  .swiper.nop-slider {
+    height: 720px;
+  }
+}
+
+@media all and (max-width: 2100px) {
+  .swiper.nop-slider {
+    height: 550px;
+  }
+}
+
+@media all and (max-width: 1680px) {
+  .swiper.nop-slider {
+    height: 450px;
+  }
 }
 
 @media all and (max-width: 1200px) {
   .swiper.nop-slider {
-    height: 400px;
+    height: 300px;
   }
 }
 
 @media all and (max-width: 1000px) {
   .swiper.nop-slider {
-    height: 350px;
+    height: 250px;
   }
 }
 
 @media all and (max-width: 769px) {
   .swiper.nop-slider {
-    height: 300px;
+    height: 200px;
   }
 }
 
