@@ -849,6 +849,8 @@ public partial class ProductService : IProductService
         bool? inStock = null,
         bool? overridePublished = null)
     {
+        bool searchMetaKeywords = true; // sjl 20250730
+
         //some databases don't support int.MaxValue
         if (pageSize == int.MaxValue)
             pageSize = int.MaxValue - 1;
@@ -928,6 +930,8 @@ public partial class ProductService : IProductService
                           (searchDescriptions &&
                            (p.ShortDescription.Contains(keywords) || p.FullDescription.Contains(keywords))) ||
                           (searchManufacturerPartNumber && p.ManufacturerPartNumber == keywords) ||
+                          (searchMetaKeywords && p.MetaKeywords != null && p.MetaKeywords.Contains(keywords)) || // sjl 20250730
+                          (searchMetaKeywords && p.MetaDescription != null && p.MetaDescription.Contains(keywords)) || // sjl 20250730
                           (searchSku && p.Sku.Contains(keywords))
                     select p.Id;
 
