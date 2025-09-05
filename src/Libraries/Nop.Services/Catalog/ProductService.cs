@@ -924,11 +924,27 @@ public partial class ProductService : IProductService
 
             if (runStandardSearch)
             {
+                int max = 5;
+                IList<string> keywordList = keywords?.Split(' ').ToList(); // sjl 20250807
+                for (int i=0; i<max; i++)
+                {
+                    if (keywordList.Count <= i) keywordList.Add(" "); // sjl 20250807 a string that will be found
+                }
+
+                string[] keywordArr = keywordList.ToArray();
                 productsByKeywords =
                     from p in _productRepository.Table
-                    where p.Name.Contains(keywords) ||
-                          (searchDescriptions &&
-                           (p.ShortDescription.Contains(keywords) || p.FullDescription.Contains(keywords))) ||
+                    where (p.Name.Contains(keywordArr[0]) && // sjl 20250807
+                           p.Name.Contains(keywordArr[1]) && // sjl 20250807
+                           p.Name.Contains(keywordArr[2]) && // sjl 20250807
+                           p.Name.Contains(keywordArr[3]) && // sjl 20250807
+                           p.Name.Contains(keywordArr[4])) || // sjl 20250807
+                          (searchDescriptions && (
+                           (p.ShortDescription.Contains(keywordArr[0]) || p.FullDescription.Contains(keywordArr[0])) && // sjl 20250807
+                           (p.ShortDescription.Contains(keywordArr[1]) || p.FullDescription.Contains(keywordArr[1])) && // sjl 20250807
+                           (p.ShortDescription.Contains(keywordArr[2]) || p.FullDescription.Contains(keywordArr[2])) && // sjl 20250807
+                           (p.ShortDescription.Contains(keywordArr[3]) || p.FullDescription.Contains(keywordArr[3])) && // sjl 20250807
+                           (p.ShortDescription.Contains(keywordArr[4]) || p.FullDescription.Contains(keywordArr[4])) )) || // sjl 20250807
                           (searchManufacturerPartNumber && p.ManufacturerPartNumber == keywords) ||
                           (searchMetaKeywords && p.MetaKeywords != null && p.MetaKeywords.Contains(keywords)) || // sjl 20250730
                           (searchMetaKeywords && p.MetaDescription != null && p.MetaDescription.Contains(keywords)) || // sjl 20250730
