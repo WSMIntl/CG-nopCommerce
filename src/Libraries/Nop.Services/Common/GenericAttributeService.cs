@@ -96,7 +96,8 @@ public partial class GenericAttributeService : IGenericAttributeService
             where ga.EntityId == entityId &&
                   ga.KeyGroup == keyGroup
             select ga;
-        var attributes = await _shortTermCacheManager.GetAsync(async () => await query.ToListAsync(), NopCommonDefaults.GenericAttributeCacheKey, entityId, keyGroup);
+        //Lightedge no-cache//var attributes = await _shortTermCacheManager.GetAsync(async () => await query.ToListAsync(), NopCommonDefaults.GenericAttributeCacheKey, entityId, keyGroup);
+        var attributes = await query.ToListAsync();
 
         return attributes;
     }
