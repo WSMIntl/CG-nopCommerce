@@ -849,7 +849,7 @@ public partial class ProductService : IProductService
         bool? inStock = null,
         bool? overridePublished = null)
     {
-        bool searchMetaKeywords = true; // sjl 20250730
+        bool searchMetaKeywords = true; // sjl 20250730 Lightedge
 
         //some databases don't support int.MaxValue
         if (pageSize == int.MaxValue)
@@ -925,29 +925,29 @@ public partial class ProductService : IProductService
             if (runStandardSearch)
             {
                 int max = 5;
-                IList<string> keywordList = keywords?.Split(' ').ToList(); // sjl 20250807
+                IList<string> keywordList = keywords?.Split(' ').ToList(); // sjl 20250807 Lightedge
                 for (int i=0; i<max; i++)
                 {
-                    if (keywordList.Count <= i) keywordList.Add(" "); // sjl 20250807 a string that will be found
+                    if (keywordList.Count <= i) keywordList.Add(" "); // sjl 20250807 a string that will be found Lightedge
                 }
 
                 string[] keywordArr = keywordList.ToArray();
                 productsByKeywords =
                     from p in _productRepository.Table
-                    where (p.Name.Contains(keywordArr[0]) && // sjl 20250807
-                           p.Name.Contains(keywordArr[1]) && // sjl 20250807
-                           p.Name.Contains(keywordArr[2]) && // sjl 20250807
-                           p.Name.Contains(keywordArr[3]) && // sjl 20250807
-                           p.Name.Contains(keywordArr[4])) || // sjl 20250807
+                    where (p.Name.Contains(keywordArr[0]) && // sjl 20250807 Lightedge
+                           p.Name.Contains(keywordArr[1]) && // sjl 20250807 Lightedge
+                           p.Name.Contains(keywordArr[2]) && // sjl 20250807 Lightedge
+                           p.Name.Contains(keywordArr[3]) && // sjl 20250807 Lightedge
+                           p.Name.Contains(keywordArr[4])) || // sjl 20250807 Lightedge
                           (searchDescriptions && (
-                           (p.ShortDescription.Contains(keywordArr[0]) || p.FullDescription.Contains(keywordArr[0])) && // sjl 20250807
-                           (p.ShortDescription.Contains(keywordArr[1]) || p.FullDescription.Contains(keywordArr[1])) && // sjl 20250807
-                           (p.ShortDescription.Contains(keywordArr[2]) || p.FullDescription.Contains(keywordArr[2])) && // sjl 20250807
-                           (p.ShortDescription.Contains(keywordArr[3]) || p.FullDescription.Contains(keywordArr[3])) && // sjl 20250807
-                           (p.ShortDescription.Contains(keywordArr[4]) || p.FullDescription.Contains(keywordArr[4])) )) || // sjl 20250807
+                           (p.ShortDescription.Contains(keywordArr[0]) || p.FullDescription.Contains(keywordArr[0])) && // sjl 20250807 Lightedge
+                           (p.ShortDescription.Contains(keywordArr[1]) || p.FullDescription.Contains(keywordArr[1])) && // sjl 20250807 Lightedge
+                           (p.ShortDescription.Contains(keywordArr[2]) || p.FullDescription.Contains(keywordArr[2])) && // sjl 20250807 Lightedge
+                           (p.ShortDescription.Contains(keywordArr[3]) || p.FullDescription.Contains(keywordArr[3])) && // sjl 20250807 Lightedge
+                           (p.ShortDescription.Contains(keywordArr[4]) || p.FullDescription.Contains(keywordArr[4])) )) || // sjl 20250807 Lightedge
                           (searchManufacturerPartNumber && p.ManufacturerPartNumber == keywords) ||
-                          (searchMetaKeywords && p.MetaKeywords != null && p.MetaKeywords.Contains(keywords)) || // sjl 20250730
-                          (searchMetaKeywords && p.MetaDescription != null && p.MetaDescription.Contains(keywords)) || // sjl 20250730
+                          (searchMetaKeywords && p.MetaKeywords != null && p.MetaKeywords.Contains(keywords)) || // sjl 20250730 Lightedge
+                          (searchMetaKeywords && p.MetaDescription != null && p.MetaDescription.Contains(keywords)) || // sjl 20250730 Lightedge
                           (searchSku && p.Sku.Contains(keywords))
                     select p.Id;
 
