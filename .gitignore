@@ -209,3 +209,6 @@ src/Tests/Nop.Tests/Connections.resx
 #CN
 src/Plugins/Nop.Plugin.Payments.PurchaseOrder
 src/Presentation/Nop.Web/Themes/Chemglass
+!src/Presentation/Nop.Web/Themes/
+!src/Presentation/Nop.Web/Themes/Chemglass/
+!src/Presentation/Nop.Web/Themes/Chemglass/**
