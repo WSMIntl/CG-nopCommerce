@@ -21,4 +21,7 @@
 
     //add jQuery UI css file
     NopHtml.AppendCssFileParts("~/lib_npm/jquery-ui-dist/jquery-ui.min.css");
+
+    //theme-level override for NivoSlider swiper config (upgrade-safe, no plugin file edits)
+    NopHtml.AppendScriptParts(ResourceLocation.Footer, $"~/Themes/{themeName}/Content/js/nivo-swiper-override.js");
 }
