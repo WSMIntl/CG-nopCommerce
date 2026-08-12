@@ -1,4 +1,4 @@
-#################
+﻿#################
 ## Visual Studio
 #################
 
@@ -212,3 +212,7 @@ src/Presentation/Nop.Web/Themes/Chemglass
 !src/Presentation/Nop.Web/Themes/
 !src/Presentation/Nop.Web/Themes/Chemglass/
 !src/Presentation/Nop.Web/Themes/Chemglass/**
+
+# nopCommerce runtime logs
+src/Presentation/Nop.Web/logs/
+
