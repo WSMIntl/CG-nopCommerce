@@ -56,7 +56,7 @@ public class WidgetsGoogleAnalyticsViewComponent : NopViewComponent
             analyticsTrackingScript = analyticsTrackingScript.Replace("{CUSTOMER_TRACKING}", customerIdCode);
             analyticsTrackingScript = analyticsTrackingScript.Replace("{ECOMMERCE_TRACKING}", "");
 
-            return analyticsTrackingScript;
+            return PrepareCookiebotTrackingScript(analyticsTrackingScript);
         }
         catch (Exception ex)
         {
@@ -64,6 +64,24 @@ public class WidgetsGoogleAnalyticsViewComponent : NopViewComponent
         }
 
         return "";
+    }
+
+    protected virtual string PrepareCookiebotTrackingScript(string trackingScript)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(trackingScript, "<script\\b(?<attributes>[^>]*)>", match =>
+        {
+            var attributes = match.Groups["attributes"].Value;
+
+            if (attributes.Contains("data-cookieconsent", StringComparison.OrdinalIgnoreCase))
+                return match.Value;
+
+            if (System.Text.RegularExpressions.Regex.IsMatch(attributes, "\\s+type\\s*=\\s*(['\\\"])text/(javascript|ecmascript)\\1", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                attributes = System.Text.RegularExpressions.Regex.Replace(attributes, "\\s+type\\s*=\\s*(['\\\"])text/(javascript|ecmascript)\\1", " type=\"text/plain\"", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(attributes, "\\s+type\\s*=", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                attributes += " type=\"text/plain\"";
+
+            return $"<script{attributes} data-cookieconsent=\"statistics\">";
+        }, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
     }
 
     #endregion
