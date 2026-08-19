@@ -5,23 +5,27 @@
 <div class="header-links">
     <ul>
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderLinksBefore, additionalData = Model })
-        @if (Model.IsAuthenticated)
-        {
-            <li><a href="@Url.RouteUrl("CustomerInfo")" class="ico-account">@T("Account.MyAccount")@*@Model.CustomerName*@</a></li>
-            <li><a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a></li>
-        }
-        else
-        {
+        @{
             var returnUrl = Context.Request.Query.TryGetValue("returnUrl", out var url) && !StringValues.IsNullOrEmpty(url)
                 ? url.ToString()
                 : webHelper.GetRawUrl(Context.Request);
-
+        }
+        @if (Model.IsAuthenticated)
+        {
+            <li><a href="@Url.RouteUrl("CustomerInfo")" class="ico-account">@T("Account.MyAccount")@*@Model.CustomerName*@</a></li>
+        }
+        else
+        {
             @if (Model.RegistrationType != UserRegistrationType.Disabled)
             {
                 <li><a href="@Url.RouteUrl("Register", new { returnUrl })" class="ico-register">@T("Account.Register")</a></li>
             }
             <li><a href="@Url.RouteUrl("creditapplication")" class="ico-register">@T("Apply for Business Account")</a></li>
-            <li><a href="@Url.RouteUrl("Login", new { returnUrl })" class="ico-login">@T("Account.Login")</a></li>
+        }
+        <li><a href="/careers" class="ico-careers">@T("Careers")</a></li>
+        @if (Model.IsAuthenticated)
+        {
+            <li><a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a></li>
         }
         @if (Model.AllowPrivateMessages)
         {
@@ -49,6 +53,10 @@
                     <span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span>
                 </a>
             </li>
+        }
+        @if (!Model.IsAuthenticated)
+        {
+            <li><a href="@Url.RouteUrl("Login", new { returnUrl })" class="ico-login">@T("Account.Login")</a></li>
         }
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderLinksAfter, additionalData = Model })
     </ul>
