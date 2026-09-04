@@ -1,0 +1,10 @@
+﻿@model ProductDetailsModel.AddToCartModel
+@using Nop.Core.Domain.Orders
+@if (!Model.DisableWishlistButton)
+{
+    <div class="add-to-wishlist">
+        <a href="#" title="Add to Favorites" class="add-to-wishlist-link" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = Model.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;">
+            <img src="/Themes/Chemglass/Content/images/site/wishlist.png" alt="Wishlist" />
+        </a>
+    </div>
+}

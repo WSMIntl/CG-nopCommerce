@@ -1,0 +1,206 @@
+<style type="text/css">
+    .labelWidth {
+        width: 100px;
+    }
+</style>
+@{
+    <!-- ============= Page Title for Browser ============== -->
+    NopHtml.AddTitleParts("Vials Sample Pack Form");
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+<div class="page about_corp-page">
+    <div class="page-body">
+        <div class="sixteen columns">
+            <div class="section-pad">
+                <div class="container">
+                    <div class="main">
+                        <div class="sixteen columns">
+                            <!--Page Title-->
+                            <h2>Here’s your chance to try our vials for free!</h2>
+                            <h1>Complete the form below to receive Free Sample Packs of Autosampler and / or Reaction Vials</h1>
+                        </div>
+
+
+
+                        <!--======== Start Row - Single Column ========-->
+                        <div class="sixteen columns">
+                            <!--Intial Blue Divider Line-->
+                            <div class=titleDeviderLine></div>
+                        </div>
+                        <!--End Row-->
+                        <div style="height:25px; clear:both;"></div>
+
+
+
+                        <!--==== One Row - 2 Columns - Img and Text ====-->
+                        <div class="sixteen columns">
+
+                            <!-- ==== Column A - Text ==== -->
+                            <div class="ten columns">
+
+                                <h3><strong>Autosampler Vials</strong></h3>
+                                <p>Chemglass Autosampler Vials and Closures are available in a variety of configurations, many of which are included in this free sample. The pack features Sure-Link™ closures with septa that are chemically bonded to the caps and won’t “push-in” or come loose.</p>
+
+                                <div style="height:10px;"></div>
+
+                                <h3 style="color:#2f72a6;"><strong>Ready to Buy Autosampler Vials? Here’s a valuable offer.</strong></h3>
+                                <div style="margin-right:1%;"><p>Popular Chemglass autosampler vials with bonded closures are featured for purchase in a <strong>Buy Two - Get Three Packs</strong> offer. <a href="../chromatography-vial-packs-bonded-septa">Check it out here</a>.</p></div>
+
+
+                                <div style="height:10px;"></div>
+
+
+                                <h3><strong>Pressure Release Reaction Vials</strong></h3>
+                                <p>Chemglass Pressure Release Reaction Vials are designed for optimal performance and safety in heated reactions. Their special, open-top caps prevent vial pressure from exceeding 150psig. And the clear, borosilicate glass is heat and chemical resistant. Available in 1 and 2 dram, as well as 20 and 40 mL sizes. <a href="/reactions-vials">Click here</a> for more details.</p>
+
+
+                                <div style="height:10px;"></div>
+
+
+                                <h3 style="color:#2f72a6;"><strong>Ready to Learn more about Reaction Vials </strong></h3>
+                                <p>For complete product details <a href="/reaction-vials-pressure-relief-borosilicate-glass-shelf-packs">click here</a>.</p>
+
+                                <div style="height:10px;"></div>
+
+
+                                <form id="form1" name="form1" method="post" action="/vialregister">
+                                    <p style="color:#4e8e49;"><strong>Complete this form to receive your free vial sample pack(s) </strong></p>
+                                    <p>(<em>All fields are required.</em>)</p>
+                                    <p><strong>Choose your free vials:</strong></p>
+                                    <table width="350" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td width="30">
+                                                <input type="checkbox" name="Autosampler" id="Autosampler" />
+                                            </td>
+                                            <td width="320"><label for="Autosampler">Autosampler (8-Pack of Vials with 12 Closures)</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="Reaction" id="Reaction" />
+                                            </td>
+                                            <td><label for="Reaction">Reaction (24-Pack of 20mL Vials)</label></td>
+                                        </tr>
+                                    </table>
+
+                                    <div style="height:15px;"></div>
+
+                                    <table width="355" border="0" cellpadding="3">
+                                        <tr>
+                                            <td width="30%"><label for="FirstName2">First Name</label></td>
+                                            <td width="70%"><input name="FirstName" type="text" required id="FirstName" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="LastName">Last Name</label></td>
+                                            <td width="73%"><input name="LastName" type="text" required id="LastName" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="Company">Company</label></td>
+                                            <td width="73%"><input name="Company" type="text" required id="Company" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="LabName">Lab Name</label></td>
+                                            <td width="73%"><input name="LabName" type="text" required id="LabName" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="LabType">Lab Type</label></td>
+                                            <td width="73%"><input name="LabType" type="text" required id="LabType" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="eMail">eMail</label></td>
+                                            <td width="73%"><input name="eMail" type="text" required id="eMail" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="Phone">Phone</label></td>
+                                            <td width="73%"><input name="Phone" type="text" required id="Phone" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="Address1">Address 1</label></td>
+                                            <td width="73%"><input name="Address1" type="text" required id="Address1" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="Address2">Address 2</label></td>
+                                            <td width="73%"><input name="Address2" type="text" id="Address2" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="City">City</label></td>
+                                            <td width="73%"><input name="City" type="text" required id="City" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="State">State</label></td>
+                                            <td width="73%"><input name="State" type="text" required id="State" size="40" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="27%"><label for="Zip">Zip</label></td>
+                                            <td width="73%"><input name="Zip" type="text" required id="Zip" size="40" /></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td width="27%" valign="top"><label for="Comments">Comments</label></td>
+                                            <td width="73%"><textarea name="Comments" cols="37" rows="6" required="required" id="Comments"></textarea></td>
+
+                                        </tr>
+
+                                    </table>
+
+
+                                    <div style="height:10px;"></div>
+
+                                    <p>By submitting this form, you are agreeing to opt-in to receive communication from Chemglass Life Sciences.</p>
+
+                                    <div style="height:10px;"></div>
+
+
+                                    <!--EULA-->
+                                    <input type="checkbox" name="Agree" id="Agree" required />
+                                    <label for="Agree">I have read and agree to the Chemglass Life Sciences <a href="/privacy-notice">Privacy Policy</a>* </label>
+
+
+                                    <div style="height:10px;"></div>
+
+
+                                    <div class="captcha-box">
+                                        <nop-captcha />
+                                    </div>
+
+                                    <!--Submit Button-->
+                                    <div class="buttons"><input type="submit" name="send-email" class="button-1 contact-us-button" value="Submit"></div>
+                                </form>
+                                <div style="height:25px;"></div>
+                                <!-- End column A-->
+                            </div>
+
+
+
+                            <!--===== Column B - Img ======-->
+                            <div class="five columns">
+                                <img src="~/Themes/ChemGlass/Content/images/images/Vial-Sample-Packs.jpg" width="345" height="900" style="max-width:100%; height:auto;" />
+                            </div>
+
+                            <!--End 2 column Row-->
+                        </div>
+
+                        <!--padding and float Clear -->
+                        <div style="height:25px; clear:both;"></div>
+
+
+                        <!-- ============================================================================
+                             End Page
+                        ================================================================================= -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

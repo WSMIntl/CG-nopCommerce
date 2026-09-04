@@ -1,0 +1,46 @@
+@using Nop.Core.Domain.Catalog
+@using Nop.Services.Helpers
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+
+@inject CatalogSettings catalogSettings
+@inject IThemeContext themeContext
+@inject IUserAgentHelper userAgentHelper
+@inject IWebHostEnvironment webHostEnvironment
+
+@{
+    Layout = "";
+    var themeName = await themeContext.GetWorkingThemeNameAsync();
+    var supportRtl = await Html.ShouldUseRtlThemeAsync();
+
+    // Build an automatic cache-busting version from the active Chemglass CSS file timestamp.
+    var chemglassFileName = $"chemglass{(supportRtl ? ".rtl" : "")}.css";
+    var chemglassRelativePath = $"Themes/{themeName}/Content/css/{chemglassFileName}";
+    var chemglassPhysicalPath = System.IO.Path.Combine(webHostEnvironment.ContentRootPath, chemglassRelativePath.Replace('/', System.IO.Path.DirectorySeparatorChar));
+    var chemglassVersion = File.Exists(chemglassPhysicalPath)
+        ? File.GetLastWriteTimeUtc(chemglassPhysicalPath).Ticks.ToString()
+        : "1";
+
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/{chemglassFileName}?v={chemglassVersion}");
+    NopHtml.AppendCssFileParts($"~/Themes/DefaultClean/Content/css/styles{(supportRtl ? ".rtl" : "")}.css?v={chemglassVersion}");
+
+    //add swiper css file
+    if (catalogSettings.DisplayAllPicturesOnCatalogPages)
+    {
+        NopHtml.AppendCssFileParts("~/lib_npm/swiper/swiper-bundle.min.css");
+    }
+
+    //add jQuery UI css file
+    NopHtml.AppendCssFileParts("~/lib_npm/jquery-ui-dist/jquery-ui.min.css");
+
+    // Load Nivo slider override only for mobile requests.
+    if (userAgentHelper.IsMobileDevice())
+    {
+        var nivoOverrideRelativePath = $"Themes/{themeName}/Content/js/nivo-swiper-override.js";
+        var nivoOverridePhysicalPath = System.IO.Path.Combine(webHostEnvironment.ContentRootPath, nivoOverrideRelativePath.Replace('/', System.IO.Path.DirectorySeparatorChar));
+        var nivoOverrideVersion = File.Exists(nivoOverridePhysicalPath)
+            ? File.GetLastWriteTimeUtc(nivoOverridePhysicalPath).Ticks.ToString()
+            : "1";
+        NopHtml.AppendScriptParts(ResourceLocation.Footer, $"~/Themes/{themeName}/Content/js/nivo-swiper-override.js?v={nivoOverrideVersion}");
+    }
+}

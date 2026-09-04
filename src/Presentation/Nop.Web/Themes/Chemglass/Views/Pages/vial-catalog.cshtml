@@ -1,0 +1,438 @@
+@{
+    NopHtml.AddTitleParts("Vial Catalog Request");
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    var vialCatalogError = TempData["VialCatalog.Error"] as string;
+    Func<string, string> vialCatalogValue = fieldName => TempData[$"VialCatalog.Form.{fieldName}"] as string ?? string.Empty;
+    Func<string, bool> vialCatalogChecked = fieldName => string.Equals(TempData[$"VialCatalog.Form.{fieldName}"] as string, "on", StringComparison.OrdinalIgnoreCase);
+    var vialCatalogAgreeChecked = vialCatalogChecked("Agree") ? "checked" : null;
+}
+
+<style>
+    .vial-catalog-landing {
+        color: #333;
+        font-size: 16px;
+    }
+
+    .vial-catalog-landing .vial-wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 36px 18px 110px;
+    }
+
+    .vial-catalog-landing h1 {
+        margin: 0;
+        color: #0f5fa8;
+        font-size: 38px;
+        line-height: 1.22;
+        font-weight: 400;
+    }
+
+    .vial-catalog-landing .vial-rule {
+        height: 1px;
+        margin: 12px 0 48px;
+        background: #8eb7cf;
+    }
+
+    .vial-catalog-landing .vial-hero {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 34px;
+    }
+
+    .vial-catalog-landing .vial-hero img {
+        width: min(780px, 100%);
+        height: auto;
+        display: block;
+    }
+
+    .vial-catalog-landing .vial-note {
+        margin: 0 0 34px 8px;
+        color: #4d4d4d;
+        font-style: italic;
+    }
+
+    .vial-catalog-landing .vial-download {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+    }
+
+    .vial-catalog-landing .vial-download p {
+        margin: 0;
+    }
+
+    .vial-catalog-landing .vial-button,
+    .vial-catalog-landing .vial-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        padding: 5px 12px;
+        border: 0;
+        background: #0f72a6;
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .vial-catalog-landing .vial-button:hover,
+    .vial-catalog-landing .vial-submit:hover {
+        background: #0b5f8c;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .vial-catalog-landing .vial-content {
+        display: grid;
+        grid-template-columns: minmax(0, 640px) minmax(260px, 1fr);
+        gap: 72px;
+        align-items: start;
+    }
+
+    .vial-catalog-landing .vial-form {
+        display: grid;
+        gap: 9px;
+    }
+
+    .vial-catalog-landing .vial-field {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+    }
+
+    .vial-catalog-landing .vial-field label,
+    .vial-catalog-landing .vial-comments label {
+        color: #4a4a4a;
+    }
+
+    .vial-catalog-landing .vial-required {
+        color: #c62828;
+        font-weight: 700;
+    }
+
+    .vial-catalog-landing .vial-honeypot {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    .vial-catalog-landing .vial-form-error {
+        border: 1px solid #c62828;
+        background: #fff5f5;
+        color: #9d1f1f;
+        padding: 10px 12px;
+        line-height: 1.45;
+    }
+
+    .vial-catalog-landing input[type="text"],
+    .vial-catalog-landing input[type="email"],
+    .vial-catalog-landing input[type="tel"],
+    .vial-catalog-landing textarea {
+        width: 100%;
+        min-height: 28px;
+        border: 1px solid #cfcfcf;
+        padding: 4px 8px;
+        background: #fff;
+        color: #333;
+        box-sizing: border-box;
+    }
+
+    .vial-catalog-landing textarea {
+        min-height: 148px;
+        resize: vertical;
+    }
+
+    .vial-catalog-landing .vial-comments {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        margin-top: 8px;
+    }
+
+    .vial-catalog-landing .vial-consent {
+        margin: 12px 0 0;
+        line-height: 1.55;
+    }
+
+    .vial-catalog-landing .vial-consent-check {
+        display: flex;
+        gap: 7px;
+        align-items: flex-start;
+        margin: 16px 0;
+    }
+
+    .vial-catalog-landing .vial-captcha {
+        display: block;
+        clear: both;
+        margin: 20px 0 22px 140px;
+        min-height: 78px;
+        overflow: visible;
+    }
+
+    .vial-catalog-landing .vial-captcha .captcha-box {
+        line-height: 1.5;
+    }
+
+    .vial-catalog-landing .vial-captcha .captcha-box > div {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .vial-catalog-landing .vial-captcha .g-recaptcha {
+        margin: 0;
+    }
+
+    .vial-catalog-landing .vial-captcha label {
+        order: 1;
+        display: inline;
+        margin: 0;
+    }
+
+    .vial-catalog-landing .vial-captcha input {
+        order: 3;
+        display: inline-block;
+        margin: 0 0 0 8px;
+        max-width: 90px;
+    }
+
+    .vial-catalog-landing .vial-cover {
+        display: flex;
+        justify-content: center;
+        padding-top: 36px;
+    }
+
+    .vial-catalog-landing .vial-cover img {
+        width: min(330px, 100%);
+        height: auto;
+        display: block;
+    }
+
+    .vial-catalog-landing .vial-captcha .captcha-box .required {
+        order: 2;
+        float: none;
+        color: #c62828;
+        font-weight: 700;
+    }
+
+    @@media (max-width: 900px) {
+        .vial-catalog-landing h1 {
+            font-size: 30px;
+        }
+
+        .vial-catalog-landing .vial-rule {
+            margin-bottom: 30px;
+        }
+
+        .vial-catalog-landing .vial-content {
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .vial-catalog-landing .vial-cover {
+            order: -1;
+            padding-top: 0;
+            justify-content: center;
+        }
+
+        .vial-catalog-landing .vial-cover img {
+            width: min(260px, 76vw);
+        }
+    }
+
+    @@media (max-width: 560px) {
+        .vial-catalog-landing {
+            font-size: 15px;
+        }
+
+        .vial-catalog-landing .vial-wrap {
+            padding: 22px 12px 64px;
+        }
+
+        .vial-catalog-landing h1 {
+            font-size: 23px;
+            line-height: 1.28;
+        }
+
+        .vial-catalog-landing .vial-rule {
+            margin: 10px 0 22px;
+        }
+
+        .vial-catalog-landing .vial-hero {
+            margin-bottom: 22px;
+        }
+
+        .vial-catalog-landing .vial-note {
+            margin: 0 0 22px;
+        }
+
+        .vial-catalog-landing .vial-download {
+            align-items: stretch;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .vial-catalog-landing .vial-download p {
+            flex-basis: 100%;
+        }
+
+        .vial-catalog-landing .vial-button,
+        .vial-catalog-landing .vial-submit {
+            width: 100%;
+            min-height: 42px;
+            padding: 10px 14px;
+        }
+
+        .vial-catalog-landing .vial-field,
+        .vial-catalog-landing .vial-comments {
+            grid-template-columns: 1fr;
+            gap: 6px;
+        }
+
+        .vial-catalog-landing .vial-form {
+            gap: 12px;
+        }
+
+        .vial-catalog-landing input[type="text"],
+        .vial-catalog-landing input[type="email"],
+        .vial-catalog-landing input[type="tel"],
+        .vial-catalog-landing textarea {
+            min-height: 42px;
+            font-size: 16px;
+        }
+
+        .vial-catalog-landing textarea {
+            min-height: 132px;
+        }
+
+        .vial-catalog-landing .vial-captcha {
+            margin: 14px 0 18px;
+            min-height: 0;
+        }
+
+        .vial-catalog-landing .vial-captcha input {
+            width: 100%;
+            max-width: 120px;
+            min-height: 38px;
+        }
+
+        .vial-catalog-landing .buttons {
+            margin-top: 2px;
+        }
+
+    }
+</style>
+
+<div class="page vial-catalog-landing">
+    <div class="vial-wrap">
+        <h1>Complete the form below to have a paper copy of the Vial Catalog mailed to you.</h1>
+        <div class="vial-rule"></div>
+
+        <div class="vial-hero">
+            <img src="/Themes/ChemGlass/Content/images/vials-catalog/vial-catalog-hero.jpg?v=2" alt="Assorted Chemglass vials" />
+        </div>
+
+        <div class="vial-download">
+            <p>Click the download button for the PDF version of the Vial Catalog</p>
+            <a class="vial-button" href="/Themes/ChemGlass/Content/images/New_Lit/Vials_Cat_2026_2.pdf">Download</a>
+        </div>
+
+        <div class="vial-content">
+            <form id="vial-catalog-form" class="vial-form" name="vial-catalog-form" method="post" action="/vialcatalogregister">
+                @if (!String.IsNullOrWhiteSpace(vialCatalogError))
+                {
+                    <div class="vial-form-error" role="alert">@vialCatalogError</div>
+                }
+
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="Campaign" value="Vial Catalog 2026" />
+                <div class="vial-honeypot" aria-hidden="true">
+                    <label for="Website">Website</label>
+                    <input name="Website" type="text" id="Website" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <div class="vial-field">
+                    <label for="FirstName">First Name <span class="vial-required">*</span></label>
+                    <input name="FirstName" type="text" id="FirstName" value='@vialCatalogValue("FirstName")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="LastName">Last Name <span class="vial-required">*</span></label>
+                    <input name="LastName" type="text" id="LastName" value='@vialCatalogValue("LastName")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="Company">Company <span class="vial-required">*</span></label>
+                    <input name="Company" type="text" id="Company" value='@vialCatalogValue("Company")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="LabName">Lab Name <span class="vial-required">*</span></label>
+                    <input name="LabName" type="text" id="LabName" value='@vialCatalogValue("LabName")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="LabType">Lab Type <span class="vial-required">*</span></label>
+                    <input name="LabType" type="text" id="LabType" value='@vialCatalogValue("LabType")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="eMail">eMail <span class="vial-required">*</span></label>
+                    <input name="eMail" type="email" id="eMail" value='@vialCatalogValue("eMail")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="Phone">Phone <span class="vial-required">*</span></label>
+                    <input name="Phone" type="tel" id="Phone" value='@vialCatalogValue("Phone")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="Address1">Address 1 <span class="vial-required">*</span></label>
+                    <input name="Address1" type="text" id="Address1" value='@vialCatalogValue("Address1")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="Address2">Address 2</label>
+                    <input name="Address2" type="text" id="Address2" value='@vialCatalogValue("Address2")' />
+                </div>
+                <div class="vial-field">
+                    <label for="City">City <span class="vial-required">*</span></label>
+                    <input name="City" type="text" id="City" value='@vialCatalogValue("City")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="State">State <span class="vial-required">*</span></label>
+                    <input name="State" type="text" id="State" value='@vialCatalogValue("State")' required />
+                </div>
+                <div class="vial-field">
+                    <label for="Zip">Zip <span class="vial-required">*</span></label>
+                    <input name="Zip" type="text" id="Zip" value='@vialCatalogValue("Zip")' required />
+                </div>
+                <div class="vial-comments">
+                    <label for="Comments">Comments</label>
+                    <textarea name="Comments" id="Comments">@vialCatalogValue("Comments")</textarea>
+                </div>
+
+                <p class="vial-consent">By submitting this form, you are agreeing to opt-in to receive communication from Chemglass Life Sciences.</p>
+
+                <div class="vial-consent-check">
+                    <input type="checkbox" name="Agree" id="Agree" checked="@vialCatalogAgreeChecked" required />
+                    <label for="Agree">I have read and agree to the Chemglass Life Sciences <a href="/privacy-notice">Privacy Policy</a> <span class="vial-required">*</span></label>
+                </div>
+
+                <div class="vial-captcha">
+                    <nop-captcha action-name="VialCatalogRegister" />
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" name="send-email" class="vial-submit" value="Submit">Submit</button>
+                </div>
+            </form>
+
+            <div class="vial-cover">
+                <img src="/Themes/ChemGlass/Content/images/vials-catalog/vials-catalog-thumbnail.png" alt="Vials catalog cover" />
+            </div>
+        </div>
+    </div>
+</div>

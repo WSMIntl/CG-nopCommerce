@@ -15,4 +15,10 @@ public class GoogleAnalyticsSettings : ISettings
     /// Gets or sets a value indicating whether to include customer identifier to script
     /// </summary>
     public bool IncludeCustomerId { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the legacy Universal Analytics property is suppressed.
+    /// The original tracking script remains stored so the setting can be reversed without code changes.
+    /// </summary>
+    public bool SuppressLegacyUniversalAnalytics { get; set; } = true;
 }

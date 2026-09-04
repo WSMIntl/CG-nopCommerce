@@ -1,0 +1,183 @@
+<style type="text/css">
+.labelWidth {
+	width: 100px;
+}
+</style>
+@{
+    <!-- ============= Page Title for Browser ============== -->
+    NopHtml.AddTitleParts("New Lab Startup Program");
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+<div class="page about_corp-page">
+    <div class="page-body">
+        <div class="sixteen columns">  
+               <div class="section-pad">
+        <div class="container">
+          <div class="main">
+           	<div class="sixteen columns">
+                <!--Page Title--> 
+                <h2>Maximize Your Savings with Our</h2>
+            <h1>New Lab Startup Program</h1> </div>
+                
+                    
+                
+     <!--======== Start Row - Single Column ========-->
+          <div class="sixteen columns"> 
+               <!--Intial Blue Divider Line-->
+                <div class=titleDeviderLine></div>
+            </div> 
+      		<!--End Row-->                    
+      		<div style="height:25px; clear:both;"></div>   
+             
+             
+                
+    <!--==== One Row - 2 Columns - Img and Text ====-->
+		<div class="sixteen columns">   
+   
+	<!-- ==== Column A - Text ==== -->
+ 		<div class="ten columns"> 
+  
+               <p>Launching a new lab can be a time-consuming and formidable challenge. We’re here to help.</p>
+               <p>Whether it’s a life science or chemistry lab, we have the tools you need to quickly get up and running. Once you register, we’ll send you a checklist of products to ensure you have everything needed to get started.</p>
+               
+               <div style="height:10px;"></div>
+                 
+                 <h3 style="color:#2f72a6;"><strong>Your Regular Discount Plus*</strong></h3>
+                 <p>We’re also offering an additional discount on your first order once you register and complete a Request for Quote. You’ll continue to get your standard discount as well so you can see how the savings can add up.</p>
+                 
+                 
+                 <div style="height:10px;"></div>
+                 
+             
+             <h3 style="color:#4e8e49;"><strong>Terms & Conditions Apply</strong></h3>
+                 <p>To qualify for our New Lab Startup Program you must be<strong> starting a new lab, relocating an existing lab or been awarded a new grant</strong>. As a first step, complete the form below to establish your qualifications and to claim your additional discount.</p>
+                 <p>To make your ordering easier, we’ll send you a <strong>New Lab Startup Checklist</strong>, outlining the products needed to help get your new lab operational. Any questions you have may be directed to your New Lab Startup program manager at <a href="mailto: quotes@cglifesciences.com">quotes@cglifesciences.com</a></p>
+                 
+                 
+                 <div style="height:10px;"></div>
+                 
+                 
+                 <h3 style="color:#4e8e49;"><strong>Registration Forms*</strong></h3>
+                 <p>(All fields are required.)</p>
+                 <form id="form1" name="form1" method="post" action="/labregister">
+                 <table width="320" border="0" cellpadding="3">
+                   <tr>
+                     <td width="34%"><label for="FirstName2">First Name</label></td>
+                     <td width="66%"><input type="text" name="FirstName" id="FirstName" required /></td>
+                    </tr>
+                   
+                    <tr>
+                     <td width="34%"><label for="LastName">Last Name</label></td>
+                     <td width="66%"><input type="text" name="LastName" id="LastName" required /></td>
+                     </tr>
+                   
+                   <tr>
+                     <td width="34%"><label for="Company">Company</label></td>
+                     <td width="66%"><input type="text" name="Company" id="Company" required /></td>
+                     </tr>
+                   
+                   <tr>
+                     <td width="34%"><label for="LabName">Lab Name</label></td>
+                     <td width="66%"><input type="text" name="LabName" id="LabName" required /></td>
+                     </tr>
+                     
+                   <tr>
+                     <td width="34%"><label for="LabType">Lab Type</label></td>
+                     <td width="66%"><input type="text" name="LabType" id="LabType" required /></td>
+                     </tr>
+                   
+                    <tr>
+                     <td width="34%"><label for="eMail">eMail</label></td>
+                     <td width="66%"><input type="text" name="eMail" id="eMail" required /></td>
+                     </tr>
+                   
+                   <tr>
+                     <td width="34%"><label for="Phone">Phone</label></td>
+                     <td width="66%"><input type="text" name="Phone" id="Phone" required /></td>
+                     </tr>
+                   
+                   <tr>
+                     <td width="34%"><label for="Address1">Address 1</label></td>
+                     <td width="66%"><input type="text" name="Address1" id="Address1" required /></td>
+                     </tr>
+                     
+                    <tr>
+                     <td width="34%"><label for="Address2">Address 2</label></td>
+                     <td width="66%"><input type="text" name="Address2" id="Address2" /></td>
+                     </tr>
+                   
+                    <tr>
+                     <td width="34%"><label for="City">City</label></td>
+                     <td width="66%"><input type="text" name="City" id="City" required /></td>
+                     </tr>
+                   
+                   <tr>
+                     <td width="34%"><label for="State">State</label></td>
+                     <td width="66%"><input type="text" name="State" id="State" required /></td>
+                     </tr>
+                   
+                   <tr>
+                     <td width="34%"><label for="Zip">Zip</label></td>
+                     <td width="66%"><input type="text" name="Zip" id="Zip" required /></td>
+            
+                     </tr>
+   
+   			   </table>
+     
+     
+             <div style="height:10px;"></div>
+              
+              <!--Drop Down item-->
+                <label for="Qualifier">I qualify for this program because of a:</label> 
+                <select id="Qualifier" name="Qualifier">
+                  <option value="NewLab">New lab</option>
+                  <option value="NewGrant">New grant</option>
+                  <option value="LabReloc">Lab relocation</option>
+                </select>
+                
+            <div style="height:10px;"></div>
+              
+              
+              <!--EULA-->
+                <input type="checkbox" name="Agree" id="Agree" required />
+                <label for="Agree">I have read and agree to the Chemglass Life Sciences <a href="/privacy-notice">Privacy Policy</a>* </label>
+             
+             
+             
+             
+              
+              <div style="height:10px;"></div>
+              
+            <div class="captcha-box">
+                <nop-captcha />
+            </div>
+
+              <!--Submit Button-->
+              <div class="buttons"><input type="submit" name="send-email" class="button-1 contact-us-button" value="Submit"></div>
+         </form>
+         <div style="height:25px;"></div>
+            <!-- End column A--></div>
+              
+         
+         
+           <!--===== Column B - Img ======-->
+         <div class="five columns">            
+        <img src="~/Themes/ChemGlass/Content/images/images/New-Lab-Startup-image3.jpg" width="345" height="900" style="max-width:100%; height:auto;" />
+         </div> 
+              
+ 		 <!--End 2 column Row-->
+         </div> 
+  
+  		<!--padding and float Clear -->
+		<div style="height:25px; clear:both;"></div>
+     
+                
+   <!-- ============================================================================
+        End Page 
+   ================================================================================= -->           
+          </div>   
+             </div> 
+              </div>  
+      </div>
+  </div>
+</div>

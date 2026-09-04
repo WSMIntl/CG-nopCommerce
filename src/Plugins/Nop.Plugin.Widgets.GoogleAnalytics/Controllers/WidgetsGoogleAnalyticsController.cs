@@ -64,6 +64,7 @@ public class WidgetsGoogleAnalyticsController : BasePluginController
             UseSandbox = googleAnalyticsSettings.UseSandbox,
             IncludingTax = googleAnalyticsSettings.IncludingTax,
             IncludeCustomerId = googleAnalyticsSettings.IncludeCustomerId,
+            SuppressLegacyUniversalAnalytics = googleAnalyticsSettings.SuppressLegacyUniversalAnalytics,
             ActiveStoreScopeConfiguration = storeScope
         };
 
@@ -76,6 +77,7 @@ public class WidgetsGoogleAnalyticsController : BasePluginController
             model.UseSandbox_OverrideForStore = await _settingService.SettingExistsAsync(googleAnalyticsSettings, x => x.UseSandbox, storeScope);
             model.IncludingTax_OverrideForStore = await _settingService.SettingExistsAsync(googleAnalyticsSettings, x => x.IncludingTax, storeScope);
             model.IncludeCustomerId_OverrideForStore = await _settingService.SettingExistsAsync(googleAnalyticsSettings, x => x.IncludeCustomerId, storeScope);
+            model.SuppressLegacyUniversalAnalytics_OverrideForStore = await _settingService.SettingExistsAsync(googleAnalyticsSettings, x => x.SuppressLegacyUniversalAnalytics, storeScope);
         }
 
         return View("~/Plugins/Widgets.GoogleAnalytics/Views/Configure.cshtml", model);
@@ -98,6 +100,7 @@ public class WidgetsGoogleAnalyticsController : BasePluginController
         googleAnalyticsSettings.UseSandbox = model.UseSandbox;
         googleAnalyticsSettings.IncludingTax = model.IncludingTax;
         googleAnalyticsSettings.IncludeCustomerId = model.IncludeCustomerId;
+        googleAnalyticsSettings.SuppressLegacyUniversalAnalytics = model.SuppressLegacyUniversalAnalytics;
 
         /* We do not clear cache after each setting update.
          * This behavior can increase performance because cached settings will not be cleared 
@@ -109,6 +112,7 @@ public class WidgetsGoogleAnalyticsController : BasePluginController
         await _settingService.SaveSettingOverridablePerStoreAsync(googleAnalyticsSettings, x => x.UseSandbox, model.UseSandbox_OverrideForStore, storeScope, false);
         await _settingService.SaveSettingOverridablePerStoreAsync(googleAnalyticsSettings, x => x.IncludingTax, model.IncludingTax_OverrideForStore, storeScope, false);
         await _settingService.SaveSettingOverridablePerStoreAsync(googleAnalyticsSettings, x => x.IncludeCustomerId, model.IncludeCustomerId_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(googleAnalyticsSettings, x => x.SuppressLegacyUniversalAnalytics, model.SuppressLegacyUniversalAnalytics_OverrideForStore, storeScope, false);
 
         //now clear settings cache
         await _settingService.ClearCacheAsync();

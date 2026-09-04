@@ -1,0 +1,2 @@
+/* this avoids having to override _Print.cshtml */
+@import "../../../DefaultClean/Content/css/print.css";

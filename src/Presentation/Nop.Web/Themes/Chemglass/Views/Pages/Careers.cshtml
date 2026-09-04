@@ -1,0 +1,38 @@
+@model TopicModel
+@using Nop.Web.Models.Topics;
+@{
+    var isPopup = ViewBag.IsPopup;
+    if (isPopup == null || isPopup == false)
+    {
+        Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_RootPopup.cshtml";
+    }
+
+    if (!Model.IsPasswordProtected)
+    {
+        NopHtml.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Title);
+        NopHtml.AddMetaDescriptionParts(Model.MetaDescription);
+        NopHtml.AddMetaKeywordParts(Model.MetaKeywords);
+    }
+}
+
+<div class="cg-careers-page">
+    <div class="cg-careers-page__hero">
+        <div class="cg-careers-page__hero-inner">
+            <p class="cg-careers-page__eyebrow">Chemglass Careers</p>
+            <h1 class="cg-careers-page__title">@Model.Title</h1>
+            <p class="cg-careers-page__lede">
+                Share open roles, team information, benefits, and application instructions from the admin topic editor.
+            </p>
+        </div>
+    </div>
+
+    <div class="cg-careers-page__content-wrap">
+        <div class="cg-careers-page__content">
+            @Html.Raw(Model.Body)
+        </div>
+    </div>
+</div>

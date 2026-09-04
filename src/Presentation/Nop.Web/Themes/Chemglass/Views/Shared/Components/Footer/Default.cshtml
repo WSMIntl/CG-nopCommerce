@@ -1,0 +1,219 @@
+﻿@using static Nop.Services.Common.NopLinksDefaults
+@{
+    Layout = "";
+}
+
+@using Microsoft.AspNetCore.Http
+@using Nop.Core
+@using Nop.Core.Domain.Customers
+@using Nop.Data
+@using Nop.Services.Customers
+@using Nop.Web.Framework
+@using Nop.Services.Directory
+
+@inject IHttpContextAccessor _httpContextAccessor
+@inject ICustomerService _customerService
+@inject IWorkContext _webWorkContext
+@inject IGeoLookupService _geoLookupService
+@{
+    Customer _customer = await _webWorkContext.GetCurrentCustomerAsync();
+    int[] customerRoleIds = await _customerService.GetCustomerRoleIdsAsync(_customer);
+
+    string _roles = "";
+    foreach (int customerRoleId in customerRoleIds)
+    {
+        if (!string.IsNullOrEmpty(_roles)) _roles += ", ";
+        _roles += (await _customerService.GetCustomerRoleByIdAsync(customerRoleId))?.Name;
+    }
+
+    string CF_IP = _httpContextAccessor.HttpContext.Request.Headers["CF-Connecting-IP"];
+    string F_IP = _httpContextAccessor.HttpContext.Request.Headers["X-FORWARDED-FOR"];
+    string cf_ip = _httpContextAccessor.HttpContext.Request.Headers["cf-connecting-ip"];
+    string f_ip = _httpContextAccessor.HttpContext.Request.Headers["x-forwarded-for"];
+    string r_ip = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress?.ToString();
+    string ip = !string.IsNullOrWhiteSpace(CF_IP) ? CF_IP :
+        !string.IsNullOrWhiteSpace(F_IP) ? F_IP :
+        !string.IsNullOrWhiteSpace(cf_ip) ? cf_ip :
+        !string.IsNullOrWhiteSpace(f_ip) ? f_ip : r_ip;
+    string stored_ip = _customer.LastIpAddress;
+    string forwarded_country = string.IsNullOrWhiteSpace(ip) ? "" : _geoLookupService.LookupCountryIsoCode(ip);
+    string remote_country = string.IsNullOrWhiteSpace(r_ip) ? "" : _geoLookupService.LookupCountryIsoCode(r_ip);
+    string stored_country = string.IsNullOrWhiteSpace(stored_ip) ? "" : _geoLookupService.LookupCountryIsoCode(stored_ip);
+    bool stored_ip_present = !string.IsNullOrWhiteSpace(stored_ip);
+    bool stored_ip_matches_remote = stored_ip_present && string.Equals(stored_ip, r_ip, StringComparison.OrdinalIgnoreCase);
+}
+
+<div class="footer">
+    <div class="footer-upper">
+
+        <!--
+            IP DEBUG:
+            CF_IP:    @CF_IP
+            F_IP:     @F_IP
+            cf_ip:    @cf_ip
+            f_ip:     @f_ip
+            r_ip:     @r_ip
+            ip:       @ip
+            forwarded_country:      @forwarded_country
+            remote_country:         @remote_country
+            stored_ip_present:      @stored_ip_present
+            stored_ip_matches_r_ip: @stored_ip_matches_remote
+            stored_country:         @stored_country
+            customer: @_customer.Username
+            roles:    @_roles
+        -->
+        <div class="footer-block information">
+            <div class="title">
+                <strong>@T("Footer.Information")</strong>
+            </div>
+            <ul class="list">
+                <li><a href="@Url.RouteUrl("Pages", new { path = "about_history" })">@T("About Us")</a></li>
+
+                <li><a href="/careers">@T("Careers")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "glassware_repairs" })">@T("Glassware Repairs")</a></li>
+
+                <li><a href="@Url.RouteUrl("NewsArchive")">@T("Press")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "trade_shows" })">@T("Trade Shows")</a></li>
+
+                <li><a href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+
+                <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "privacy_policy" })">@T("Privacy Policy")</a></li>
+                <li><a href="@Url.RouteUrl("Pages", new { path = "cookie-declaration" })">Cookie Declaration</a></li>
+                <li><a href="#" onclick="if (window.Cookiebot) { Cookiebot.renew(); } return false;">Cookie Settings</a></li>
+                <li><a href="#" onclick="if (window.Cookiebot) { window.Cookiebot.show(); } return false;">Do Not Sell or Share My Personal Information</a></li>
+            </ul>
+        </div>
+        <div class="footer-block products">
+
+            <div class="title">
+                <strong>@T("Products")</strong>
+            </div>
+
+            <ul class="list">
+                <li><a href="@Url.RouteUrl("Pages", new { path = "promo_offers" })">@T("Promo Offers")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "new_products" })">@T("New Products")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "new_lit" })">@T("New Literature")</a></li>
+
+                <li><a href="@Url.RouteUrl("ProductSearch")">@T("Categories")</a></li>
+
+                <li><a href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "Product-Change-Notification" })">@T("Product Change Notification")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "tech_pdfs" })">@T("Technical Data Sheets")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "tech_notes" })">@T("Tech Notes")</a></li>
+            </ul>
+
+        </div>
+        <div class="footer-block customer-service">
+            <div class="title">
+                <strong>@T("Footer.CustomerService")</strong>
+            </div>
+            <ul class="list">
+                <li><a href="@Url.RouteUrl("Register", new { returnUrl = "/" })">REGISTER FOR AN ACCOUNT</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "order_info" })">@T("Ordering Info / Returns")</a></li>
+
+                <li><a href="@Url.RouteUrl("creditapplication")">@T("Apply for Business Account")</a></li>
+
+                <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "sales_reps" })">@T("North America Sales Team")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "supp_interns" })">@T("International Sales Team")</a></li>
+
+                <li><a href="@Url.RouteUrl("Pages", new { path = "directions" })">@T("Directions")</a></li>
+            </ul>
+        </div>
+        <div class="footer-block my-account">
+            <div class="title">
+                <strong>@T("Footer.MyAccount")</strong>
+            </div>
+            <ul class="list">
+                <li><a href="@Url.RouteUrl("login")">@T("Log In")</a></li>
+
+                <li><a href="@Url.RouteUrl("CustomerInfo")" class="account">@T("Account Information")</a></li>
+
+                <li><a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">@T("ShoppingCart")</a></li>
+
+                <li><a href="@Url.RouteUrl("CustomerOrders")">@T("Order History")</a></li>
+
+                <li><a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">@T("My Favorites")</a></li>
+            </ul>
+        </div>
+        <div class="footer-block follow-us">
+            <div class="social">
+                @await Component.InvokeAsync(typeof(SocialButtonsViewComponent))
+            </div>
+
+            <div class="newsletter">
+                <div class="newsletter_footer">
+                    <div style="color:white; padding-bottom:5px;">SIGN UP TO:</div>
+                    <form action="/pages/signupform" method="get">
+                        <button title="Newsletter Signup" type="submit" id="signup-button" class="button-1 newsletter-subscribe-button">Receive Special/Promo Offers</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-disclaimer">
+                @T("Content.CopyrightNotice", DateTime.Now.Year, "Chemglass")
+                <br /> All Rights Reserved.
+            </div>
+
+            <div class="footer-powered-by">
+                @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                    Please find more info at https://www.nopcommerce.com/nopcommerce-copyright-removal-key*@
+                Powered by <a href="@(OfficialSite.Main)" target="_blank">nopCommerce</a>
+            </div>
+
+            <div class="payment_services">
+                <span class="icon_footer_visa"><img src="/Themes/Chemglass/Content/images/payment/icon_footer_visa.png" alt="VISA" /></span>
+                <span class="icon_footer_mastercard"><img src="/Themes/Chemglass/Content/images/payment/icon_footer_mastercard.png" alt="Mastercard" /></span>
+                <span class="icon_footer_blue"><img src="/Themes/Chemglass/Content/images/payment/icon_footer_blue.png" alt="AMEX" /></span>
+            </div>
+
+            <div class="footer-ahamrf">
+                <a href="https://url.avanan.click/v2/___https:/www.ahatpa.com/transparency-in-coverage/271805?key=z4UVPYxCzA/Y/2ZT7KJIh8PgaC/yNKmR+rLz/xVj96RWwn5399MkwBE3Y/8PorMycaUieSb+dXNIDZXpj6Hf0g==___.YXAzOmNoZW1nbGFzczphOm86MWNhNGRjMTZlYTEzNDMzMDA4MTQ4ZjI0MGQwYTk4ZTM6NjpmMmI2OjFmZDFhODVlOTMwZTM0OGU4NTlhYTMxNzIwOWQ5ZDFhYWI0N2EyNWM4OWU4OTg1YjIyMDUxMWVkNjdlODM3YjY6aDpU">AHA MRF</a>
+            </div>
+
+        </div>
+    </div>
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
+</div>
+<script asp-location="Footer">
+    $(function() {
+        $('.footer-block .title').on('click', function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+            if (result.width < 769) {
+                $(this).siblings('.list').slideToggle('slow');
+            }
+        });
+    });
+</script>
+<script asp-location="Footer">
+    $(function() {
+        $('.block .title').on('click', function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+            if (result.width < 1001) {
+                $(this).siblings('.listbox').slideToggle('slow');
+            }
+        });
+    });
+</script>

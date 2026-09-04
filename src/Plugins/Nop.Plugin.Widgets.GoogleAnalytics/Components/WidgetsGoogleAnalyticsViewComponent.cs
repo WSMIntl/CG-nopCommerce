@@ -56,6 +56,9 @@ public class WidgetsGoogleAnalyticsViewComponent : NopViewComponent
             analyticsTrackingScript = analyticsTrackingScript.Replace("{CUSTOMER_TRACKING}", customerIdCode);
             analyticsTrackingScript = analyticsTrackingScript.Replace("{ECOMMERCE_TRACKING}", "");
 
+            if (_googleAnalyticsSettings.SuppressLegacyUniversalAnalytics)
+                analyticsTrackingScript = RemoveLegacyUniversalAnalytics(analyticsTrackingScript);
+
             return PrepareCookiebotTrackingScript(analyticsTrackingScript);
         }
         catch (Exception ex)
@@ -64,6 +67,43 @@ public class WidgetsGoogleAnalyticsViewComponent : NopViewComponent
         }
 
         return "";
+    }
+
+    protected virtual string RemoveLegacyUniversalAnalytics(string trackingScript)
+    {
+        const string legacyId = "UA-49725360-1";
+        var escapedId = System.Text.RegularExpressions.Regex.Escape(legacyId);
+
+        // Remove a standalone legacy loader without touching a GA4 loader in the same setting.
+        trackingScript = System.Text.RegularExpressions.Regex.Replace(
+            trackingScript,
+            $"<script\\b[^>]*\\bsrc\\s*=[^>]*{escapedId}[^>]*>\\s*</script>",
+            string.Empty,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+
+        // Remove legacy configuration calls when a saved script contains both UA and GA4 code.
+        trackingScript = System.Text.RegularExpressions.Regex.Replace(
+            trackingScript,
+            $"gtag\\s*\\(\\s*(['\\\"])config\\1\\s*,\\s*(['\\\"]){escapedId}\\2\\s*\\)\\s*;?",
+            string.Empty,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        trackingScript = System.Text.RegularExpressions.Regex.Replace(
+            trackingScript,
+            $"ga\\s*\\(\\s*(['\\\"])create\\1\\s*,\\s*(['\\\"]){escapedId}\\2[^)]*\\)\\s*;?",
+            string.Empty,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        trackingScript = System.Text.RegularExpressions.Regex.Replace(
+            trackingScript,
+            $"_gaq\\.push\\s*\\(\\s*\\[\\s*(['\\\"])(?:_setAccount|_createTracker)\\1\\s*,\\s*(['\\\"]){escapedId}\\2[^\\]]*\\]\\s*\\)\\s*;?",
+            string.Empty,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        // Remove any remaining legacy-only line, including custom tracking formats.
+        return System.Text.RegularExpressions.Regex.Replace(
+            trackingScript,
+            $"^[^\\r\\n]*{escapedId}[^\\r\\n]*(?:\\r?\\n|$)",
+            string.Empty,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Multiline);
     }
 
     protected virtual string PrepareCookiebotTrackingScript(string trackingScript)

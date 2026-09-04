@@ -1,0 +1,76 @@
+@{
+    NopHtml.AddTitleParts("Vial Catalog Request Submitted");
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+
+<style>
+    .vial-catalog-thanks {
+        color: #333;
+    }
+
+    .vial-catalog-thanks .thanks-wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 54px 18px 120px;
+    }
+
+    .vial-catalog-thanks h1 {
+        margin: 0 0 12px;
+        color: #0f5fa8;
+        font-size: 36px;
+        line-height: 1.25;
+        font-weight: 400;
+    }
+
+    .vial-catalog-thanks .thanks-rule {
+        height: 1px;
+        margin: 16px 0 28px;
+        background: #8eb7cf;
+    }
+
+    .vial-catalog-thanks p {
+        max-width: 700px;
+        margin: 0 0 18px;
+        font-size: 17px;
+        line-height: 1.55;
+    }
+
+    .vial-catalog-thanks .thanks-button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 6px 13px;
+        border: 0;
+        background: #0f72a6;
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+
+    .vial-catalog-thanks .thanks-button:hover {
+        background: #0b5f8c;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    @@media (max-width: 560px) {
+        .vial-catalog-thanks .thanks-wrap {
+            padding: 38px 14px 82px;
+        }
+
+        .vial-catalog-thanks h1 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+<div class="page vial-catalog-thanks">
+    <div class="thanks-wrap">
+        <h1>Thank you for your request.</h1>
+        <div class="thanks-rule"></div>
+        <p>Your Vial Catalog request has been submitted.</p>
+        <p>You can also download the PDF version of the catalog now.</p>
+        <a class="thanks-button" href="/Themes/ChemGlass/Content/images/New_Lit/Vials_Cat_2026_2.pdf">Download</a>
+    </div>
+</div>

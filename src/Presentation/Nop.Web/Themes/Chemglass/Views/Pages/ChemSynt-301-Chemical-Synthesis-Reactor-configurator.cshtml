@@ -1,0 +1,80 @@
+@{
+    NopHtml.AddTitleParts("ChemSynt 301 Configurator");
+    NopHtml.AddMetaDescriptionParts("Configure a ChemSynt 301 chemical reaction station for your synthesis workflow.");
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    var chemsyntAssetVersion = DateTime.UtcNow.Ticks;
+    NopHtml.AppendCssFileParts($"~/Themes/Chemglass/Content/css/chemsynt-301-configurator.css?v={chemsyntAssetVersion}");
+}
+<div class="chemsynt-configurator-page">
+
+  <main>
+    <section class="config-hero">
+      <div class="config-wrap config-hero__grid">
+        <div>
+          <h1>ChemSynt 301</h1>
+          <h2>Chemical Reaction Station</h2>
+          <p>An <strong>automated reaction workstation</strong> delivering precise control of <strong>temperature</strong>, <strong>pH</strong>, <strong>stirring</strong>, and <strong>dosing</strong>, with second-by-second data logging for reliable, unattended experiments lasting up to 7 days.</p>
+          <p>From reaction screening to scale-up, ChemSynt 301 <strong>supports every stage of process development</strong> on a single modular platform, expandable up to four fully independent reaction stations.</p>
+          <a class="config-button" href="#configurator">Build your system <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="config-hero__image"><img src="/Themes/Chemglass/Content/chemsynt-301/images/chemsynt-dosingunit-sx-configutaror-2-335477.png" alt="ChemSynt 301 with dosing unit"></div>
+      </div>
+    </section>
+
+    <section id="configurator" class="advisor-section">
+      <div class="config-wrap">
+        <div class="section-head">
+          <h2>Find your ChemSynt 301 setup</h2>
+          <p>Answer a few questions about your work and we'll suggest the right configuration. Your recommendation builds live on the right.</p>
+        </div>
+        <div class="advisor-grid">
+          <div id="quiz" class="quiz"></div>
+          <aside class="summary" aria-live="polite">
+            <div class="summary__head"><h2>ChemSynt 301</h2><p id="config-code">Answer the questions to see your recommendation</p></div>
+            <div id="recommendation-notes" class="recommendation-notes"></div>
+            <div id="recommendation-rows" class="recommendation-rows"></div>
+            <div class="summary__footer">
+              <button id="configure" class="config-button" type="button">Configure your ChemSynt 301 <span aria-hidden="true">→</span></button>
+              <button id="reset-advisor" class="reset-button" type="button">Start over</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="request" class="request-section">
+      <div class="config-wrap">
+        <div class="section-head"><h2>Request your configuration</h2><p>Send us your request and we'll prepare a tailored configuration for you.</p></div>
+        <form id="config-request-form" class="config-form" action="/pages/ChemSynt-301-Chemical-Synthesis-Reactor-configurator/submit" method="post" novalidate>
+          @Html.AntiForgeryToken()
+          <input id="request-code" name="configurationCode" type="hidden">
+          <div class="form-bar">Contact data</div>
+          <div class="form-grid form-grid--thirds">
+            <label>Title *<select name="title" required><option value=""></option><option>Mr.</option><option>Ms.</option><option>Dr.</option><option>Prof.</option></select><span class="field-error">required</span></label>
+            <label>Name *<input name="firstName" autocomplete="given-name" required><span class="field-error">required</span></label>
+            <label>Last Name *<input name="lastName" autocomplete="family-name" required><span class="field-error">required</span></label>
+            <label class="span-half">Email *<input name="email" type="email" autocomplete="email" required><span class="field-error">Enter a valid email address</span></label>
+            <label class="span-half">Phone *<input name="phone" type="tel" autocomplete="tel" required><span class="field-error">required</span></label>
+          </div>
+          <div class="form-bar">Company data</div>
+          <div class="form-grid">
+            <label>Company Name *<input name="company" autocomplete="organization" required><span class="field-error">required</span></label>
+            <label>Relation with Chemglass *<select name="relation" required><option value=""></option><option>End-user</option><option>Dealer</option></select><span class="field-error">required</span></label>
+            <label class="span-third">Address *<input name="address" autocomplete="street-address" required><span class="field-error">required</span></label>
+            <label class="span-third">City *<input name="city" autocomplete="address-level2" required><span class="field-error">required</span></label>
+            <label class="span-third">ZIP code *<input name="zip" autocomplete="postal-code" required><span class="field-error">required</span></label>
+            <label>Country *<select name="country" autocomplete="country-name" required data-country-select><option value=""></option></select><span class="field-error">required</span></label>
+            <label>Province/State *<input name="state" autocomplete="address-level1" required><span class="field-error">required</span></label>
+            <label>Industry *<select name="industry" required data-industry-select><option value=""></option></select><span class="field-error">required</span></label>
+            <label>Segment<select name="segment" disabled data-segment-select><option value=""></option></select><span class="field-error">required</span></label>
+          </div>
+          <div class="form-bar">Request details</div>
+          <label>Your request *<textarea id="request-message" name="message" rows="8" required></textarea><span class="field-error">required</span></label>
+          <button class="config-button" type="submit">Send request</button>
+          <p id="request-status" class="request-status" role="status" aria-live="polite" tabindex="-1"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+</div>

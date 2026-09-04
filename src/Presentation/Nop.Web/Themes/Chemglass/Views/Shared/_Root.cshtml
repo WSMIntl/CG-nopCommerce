@@ -1,0 +1,48 @@
+@{
+    Layout = "_Root.Head";
+
+    var showTestMessage = string.Equals(Context.Request.Query["testmsg"].ToString(), "1", System.StringComparison.Ordinal);
+    var easternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+    var easternNow = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, easternTimeZone);
+    var noticeStart = new DateTimeOffset(2026, 7, 28, 0, 0, 0, TimeSpan.FromHours(-4));
+    var noticeEnd = new DateTimeOffset(2026, 7, 30, 18, 0, 0, TimeSpan.FromHours(-4));
+    var showMaintenanceNotice = showTestMessage || (easternNow >= noticeStart && easternNow < noticeEnd);
+}
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
+@{ await Html.RenderPartialAsync("_Notifications"); }
+@{ await Html.RenderPartialAsync("_JavaScriptDisabledWarning"); }
+@if (showMaintenanceNotice)
+{
+    <div class="cg-site-notice" role="status" aria-live="polite">
+        <div class="cg-site-notice__content">
+            Notice: Scheduled maintenance will begin on July 30 at 3:30 PM EDT and may last up to 1 hour.
+        </div>
+    </div>
+}
+<div class="master-wrapper-page">
+    @await Component.InvokeAsync(typeof(AdminHeaderLinksViewComponent))
+    @{ await Html.RenderPartialAsync("_Header"); }
+    <script asp-location="Footer">
+        var localized_data = {
+            AjaxCartFailure: "@T("AjaxCart.Failure")"
+        };
+        AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart', localized_data);
+    </script>
+    <div class="header-menu">
+        @await Component.InvokeAsync(typeof(TopMenuViewComponent))
+    </div>
+    <div class="master-wrapper-content" id="main" role="main">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ContentBefore })
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+        </div>
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ContentAfter })
+    </div>
+    @await Component.InvokeAsync(typeof(FooterViewComponent))
+</div>
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })

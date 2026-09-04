@@ -38,4 +38,8 @@ public record ConfigurationModel : BaseNopModel
     [NopResourceDisplayName("Plugins.Widgets.GoogleAnalytics.IncludeCustomerId")]
     public bool IncludeCustomerId { get; set; }
     public bool IncludeCustomerId_OverrideForStore { get; set; }
+
+    [NopResourceDisplayName("Plugins.Widgets.GoogleAnalytics.SuppressLegacyUniversalAnalytics")]
+    public bool SuppressLegacyUniversalAnalytics { get; set; }
+    public bool SuppressLegacyUniversalAnalytics_OverrideForStore { get; set; }
 }

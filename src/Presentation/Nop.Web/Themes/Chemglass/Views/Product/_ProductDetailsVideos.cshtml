@@ -1,0 +1,15 @@
+@model ProductDetailsModel
+
+@if (Model.VideoModels.Any())
+{
+    <div class="video-gallery">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBeforeVideos, additionalData = Model })
+        <div class="video-thumbs">
+            @foreach (var video in Model.VideoModels)
+            {
+                @await Html.PartialAsync("_ConsentVimeo", video.VideoUrl)
+            }
+        </div>
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsAfterVideos, additionalData = Model })
+    </div>
+}

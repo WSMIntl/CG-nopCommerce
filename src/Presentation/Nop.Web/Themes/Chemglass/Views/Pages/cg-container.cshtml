@@ -1,0 +1,102 @@
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    NopHtml.AddTitleParts("CG Container");
+NopHtml.AppendCssFileParts("~/Themes/Chemglass/Content/css/cg-container.css?v=" + DateTime.UtcNow.Ticks);
+    var imageRoot = Url.Content("~/Themes/Chemglass/Content/images/divisions/cg-container/");
+}
+
+<main class="cg-container-page">
+    <div class="cg-container-page__inner">
+        <div class="cg-container-page__brand">
+            <img src="@(imageRoot)cg-container-logo.png" alt="CG Container, exclusively through Chemglass Life Sciences" />
+        </div>
+
+        <section class="cg-container-page__intro-grid" aria-label="CG Container overview">
+            <div class="cg-container-page__video-block">
+                <div class="cg-container-page__video-player">
+                    @await Html.PartialAsync("_ConsentVimeo", "https://player.vimeo.com/video/1216141405?title=0&byline=0&portrait=0&dnt=1")
+                </div>
+            </div>
+
+            <div class="cg-container-page__copy-block">
+                <p>Using state-of-the-art glass forming machinery: robotic handling, forming, annealing, and camera inspection equipment and processes, CG CONTAINER manufactures consistent high-quality vials and tubes having excellent dimensional tolerance, chemical resistance, and cosmetic appearance. Each vial is hand and camera inspected multiple times throughout the manufacturing and packaging process.</p>
+
+                <h3>Types of vials and tubes:</h3>
+                <ul>
+                    <li>Reaction Vials</li>
+                    <li>Sample Vials</li>
+                    <li>Environmental Vials</li>
+                    <li>Storage Vials</li>
+                    <li>Chromatography Vials</li>
+                    <li>Scintillation Vials</li>
+                    <li>High Recovery Vials</li>
+                    <li>Headspace Vials</li>
+                    <li>Anaerobic &amp; Culture Tubes</li>
+                    <li>Closures</li>
+                    <li>Caps</li>
+                    <li>Septa</li>
+                </ul>
+            </div>
+
+            <div class="cg-container-page__product-image">
+                <img src="@(imageRoot)vial-header.jpg" alt="Selection of CG Container glass vials and tubes" />
+            </div>
+
+            <div class="cg-container-page__options-block">
+                <h3>Options</h3>
+                <p>Borosilicate amber or clear glass vials and tubes in your choice of sizes, screw thread closures, crimp tops and packaging options.</p>
+                <ul>
+                    <li>Clear plastic convenience kits with vials and closures packed separately</li>
+                    <li>Cell divided boxes with caps assembled on vials</li>
+                    <li>Shrink wrapped in bricks</li>
+                    <li>Pressure relief vials, caps attached and packed in white trays with alpha-numeric coordinates. Custom packaging</li>
+                    <li>Open top, closed top and pressure relief closures</li>
+                    <li>Crimp top closures caps and septa</li>
+                    <li>Available in 1 and 2 dram sizes as well as 2, 4, 8, 20, 40 and 60 mL sizes</li>
+                    <li>Anaerobic or Culture tubes - open top, crimp top and threaded</li>
+                    <li>Silk screening for logos, fill marks, gradations or marking spots</li>
+                    <li>We can provide custom vial sizes and types, packaging, septa and open top or closed closures</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="cg-container-page__process-grid" aria-label="CG Container manufacturing process">
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)raw-material.jpg" alt="Glass tubing used as raw material" />
+                <figcaption><strong>Raw Material:</strong> Our process begins with high-quality glass tubing, which is formed into vials on our state-of-the-art glass vial manufacturing machinery.</figcaption>
+            </figure>
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)vial-forming-tooling.jpg" alt="Vial forming and tooling machinery" />
+                <figcaption><strong>Vial Forming &amp; Tooling:</strong> The vials advance through sequential chuck stations, where precise tooling shapes the glass tubing into the bottoms, threads, or crimp finishes.</figcaption>
+            </figure>
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)camera-inspection.jpg" alt="Computerized camera inspecting a vial" />
+                <figcaption><strong>Camera Inspection:</strong> Our advanced computerized cameras perform thorough inspections to detect and eliminate any flaws.</figcaption>
+            </figure>
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)silk-screening.jpg" alt="Silk screening equipment" />
+                <figcaption><strong>Silk Screening:</strong> Projects requiring custom screen printing, this step is seamlessly integrated into the process.</figcaption>
+            </figure>
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)annealing.jpg" alt="Vials being transferred to an annealing oven" />
+                <figcaption><strong>Annealing:</strong> Vials are robotically transferred to an annealing oven.</figcaption>
+            </figure>
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)optical-comparator-inspection.jpg" alt="Optical comparator inspecting a vial" />
+                <figcaption><strong>Optical Comparator Inspection:</strong> Checking vials on an optical comparator ensures compliance with strict thread and bottom specifications.</figcaption>
+            </figure>
+            <figure class="cg-container-page__process-card">
+                <img src="@(imageRoot)packaging-inspection-capping.jpg" alt="Vial packaging, inspection and capping" />
+                <figcaption><strong>Packaging, Inspection &amp; Capping:</strong> Packaging options for vials include partitioned boxes, clear clamshell containers, and shrink-wrapped bricks.</figcaption>
+            </figure>
+        </section>
+
+        <section class="cg-container-page__environmental" aria-labelledby="environmental-vials-heading">
+            <h2 id="environmental-vials-heading">Environmental Vials and Supplies</h2>
+            <div class="cg-container-page__environmental-logo">
+                <img src="@(imageRoot)cg-environmental-logo.png" alt="CG Container Environmental Vials and Supplies" />
+            </div>
+            <p>Coming soon... Environmental vials and supplies, including pre-cleaned vials, TOC vials, closures, low bleed septa, specialized containers and testing kits designed to meet EPA guidelines for water and soil sample collection.</p>
+        </section>
+    </div>
+</main>
